@@ -1,0 +1,298 @@
+Try to find out how many zeros a given number has at the end.
+
+def end_zeros(num: int) -> int:
+    str_num = str(num)
+    contador = 0
+    for i in str_num:
+        if i != '0':
+            contador = 0
+        if i == '0':
+            contador = contador + 1
+    return contador
+    
+    
+    
+--------------------------------------------------------------------
+
+In this little assignment you are given a string of space separated 
+numbers, and have to return the highest and lowest number.
+
+Example:
+
+high_and_low("1 2 3 4 5")  # return "5 1"
+high_and_low("1 2 -3 4 5") # return "5 -3"
+high_and_low("1 9 3 4 -5") # return "9 -5"
+
+def high_and_low(numbers):
+    numbers_list = numbers.split(" ")
+    numbers_list = list(map(int, numbers_list))
+    
+    max_numbers_list = max(numbers_list)
+    min_numbers_list = min(numbers_list)
+    return "{} {}".format(max_numbers_list, min_numbers_list)
+    
+    
+----------------------------------------------------------------------
+In DNA strings, symbols "A" and "T" are complements of each other, as 
+"C" and "G". You have function with one side of the DNA (string, except
+for Haskell); you need to get the other complementary side. DNA strand 
+is never empty or there is no DNA at all (again, except for Haskell).
+
+Example:
+
+DNA_strand ("ATTGC") # return "TAACG"
+
+DNA_strand ("GTAT") # return "CATA"
+
+def DNA_strand(dna):
+    list_dna = list(dna)
+    for n in range(len(list_dna)):
+        if list_dna[n] == 'T':
+            list_dna[n] = 'A'
+        elif list_dna[n] == 'A':
+            list_dna[n] = 'T'
+        elif list_dna[n] == 'G':
+            list_dna[n] = 'C'
+        elif list_dna[n] == 'C':
+            list_dna[n] = 'G'
+    string_dna = "".join(list_dna)
+    
+    return string_dna
+    
+----------------------------------------------------------------------
+ATM machines allow 4 or 6 digit PIN codes and PIN codes cannot contain
+ anything but exactly 4 digits or exactly 6 digits.
+
+If the function is passed a valid PIN string, return true, else return 
+false.
+
+Example:
+
+"1234"   -->  true
+"12345"  -->  false
+"a234"   -->  false
+
+def validate_pin(pin):
+    if len(pin) == 4 or len(pin) == 6:
+        list_pin = list(pin)
+        for n in range(len(pin)):
+            if pin[n].isdigit():
+                continue
+            else:
+                return False        
+        return True
+    else: 
+        return False
+        
+--------------------------------------------------------------------------------
+
+Complete the method/function so that it converts dash/underscore delimited 
+words into camel casing. The first word within the output should be capitalized 
+only if the original word was capitalized (known as Upper Camel Case, also often
+referred to as Pascal case).
+
+
+to_camel_case("the-stealth-warrior") # returns "theStealthWarrior"
+
+to_camel_case("The_Stealth_Warrior") # returns "TheStealthWarrior"
+
+
+def to_camel_case(text):
+    text_replace = text.replace('_', '-')
+    text_split = text_replace.split('-')
+    new_list = []
+    new_list.append(text_split[0])
+    for n in text_split[1:]:
+        new_list.append(n.title())        
+        
+    return "".join(new_list) 
+
+----------------------------------------------------------------------------------
+Your code must return true or false depending upon whether the given number is
+a Narcissistic number in base 10.
+
+For example, take 153 (3 digits), which is narcisstic:
+
+    1^3 + 5^3 + 3^3 = 1 + 125 + 27 = 153
+and 1652 (4 digits), which isn't:
+
+    1^4 + 6^4 + 5^4 + 2^4 = 1 + 1296 + 625 + 16 = 1938
+    
+    
+def narcissistic( value ):
+    sum = 0
+    list = [int(x) for x in str(value)]
+    for n in range(len(list)):
+        sum += list[n] ** (len(list))
+    if sum == value:
+        return True
+    else:
+        return False
+        
+-----------------------------------------------------------------------------------
+
+Some numbers have funny properties. For example:
+
+89 --> 8¹ + 9² = 89 * 1
+
+695 --> 6² + 9³ + 5^4= 1390 = 695 * 2
+
+46288 --> 4³ + 6^4+ 2^5 + 8^6 + 8^7 = 2360688 = 46288 * 51
+
+Given a positive integer n written as abcd... (a, b, c, d... being digits) 
+and a positive integer p
+
+we want to find a positive integer k, if it exists, such as the sum of the digits
+of n taken to the successive powers of p is equal to k * n.
+
+def dig_pow(n, p):
+    sum = 0
+    list = [int(x) for x in str(n)]
+    for element in list:
+        sum = sum + element ** p
+        p += 1
+    k = sum/n
+    if k.is_integer() == True:
+        return k
+    else:
+        return -1
+        
+---------------------------------------------------------------------------------------
+Build Tower by the following given argument:
+number of floors (integer and always greater than 0).
+
+for example, a tower of 3 floors looks like below
+
+[
+  '  *  ', 
+  ' *** ', 
+  '*****'
+]
+
+The exit must be in the following format: ['  *  ', ' *** ', '*****']
+
+
+def tower_builder(n_floors):
+    cont = 1
+    space = ' '
+    cont_space = n_floors - 1
+    list=[]
+    for n in range(n_floors):
+        element='*' * cont
+        list.append('{}{}{}'.format(space * cont_space, element, space * cont_space))
+        cont+=2
+        cont_space-=1
+    return list 
+    
+-------------------------------------------------------------------------------------------
+Well, you may have guessed it by now, but to be clear: you need to create a fibonacci 
+function that given a signature array/list, returns the first n elements - signature included 
+of the so seeded sequence.
+
+Example:
+tribonacci([0, 0, 0], 10), [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+tribonacci([1, 2, 3], 10), [1, 2, 3, 6, 11, 20, 37, 68, 125, 230])
+
+
+def tribonacci(signature, n):
+    #your code here
+    list=[]
+    if n == 0:    
+        return list
+    elif n == 1 or n == 2:
+        for a in range(0,n):
+            list.append(signature[a])            
+        return list
+    else:
+        for i in range(2,n-1):
+            new = (signature[i] + signature[i-1] + signature[i-2])
+            signature.append(new)
+        return signature
+
+
+---------------------------------------------------------------------------------------------
+
+Write a function that will return the count of distinct case-insensitive alphabetic characters 
+and numeric digits that occur more than once in the input string. The input string can be assumed
+ to contain only alphabets (both uppercase and lowercase) and numeric digits.
+ 
+Example
+
+"abcde" -> 0 # no characters repeats more than once
+"aabbcde" -> 2 # 'a' and 'b'
+"aabBcde" -> 2 # 'a' occurs twice and 'b' twice (`b` and `B`)
+
+
+def duplicate_count(text):
+    list = [str(x.lower()) for x in text]
+    res=[]
+    final=[]
+    for x in list:
+        if x not in res:
+            res.append(x)
+        else:
+            final.append(x)
+    final2 = set(final)
+    return len(final2)
+    
+-------------------------------------------------------------------------------------------------
+
+The number 89 is the first integer with more than one digit that fulfills the property partially 
+introduced in the title of this kata. What's the use of saying "Eureka"? Because this sum gives 
+the same number.
+
+In effect: 89 = 8^1 + 9^2
+
+The next number in having this property is 135.
+
+See this property again: 135 = 1^1 + 3^2 + 5^3
+
+We need a function to collect these numbers, that may receive two integers a, b that defines the 
+range [a, b] (inclusive) and outputs a list of the sorted numbers in the range that fulfills the 
+property described above.
+
+
+def sum_dig_pow(a, b): 
+    # your code here
+    list = [x for x in range(a,(b+1),1)]
+    print(list)
+    final_list = []
+    for number in list:
+        number_list = [int(i) for i in str(number)]
+        sum = 0
+        cont = 1
+        for element in number_list:
+            sum = sum + (element ** cont)
+            cont+=1
+        if sum == number:
+            final_list.append(sum)
+        else:
+            continue
+    return final_list
+----------------------------------------------------------------------------------------------------
+You will be given a number and you will need to return it as a string in Expanded Form. For example:
+
+expanded_form(12) # Should return '10 + 2'
+expanded_form(42) # Should return '40 + 2'
+expanded_form(70304) # Should return '70000 + 300 + 4'
+
+
+def expanded_form(num):
+    list = [int(x) for x in str(num)]
+    cont = (len(list) - 1 )
+    i=0
+    list1 =[]
+    for i in range(len(list)):
+        resultado = (list[i] * (10 ** cont))
+        cont -= 1
+        if resultado != 0:
+            list1.append(str(resultado))
+        else:
+            continue
+    return ' + '.join(list1)
+    
+    
+-----------------------------------------------------------------------------------------------------
+
+
+
